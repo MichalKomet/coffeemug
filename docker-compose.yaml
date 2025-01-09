@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  server:
+    container_name: ${SERVER_HOST}
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    env_file: .env
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    volumes:
+      - ./:/app
+    depends_on:
+      - database
+
+  database:
+    image: mongo:7.0.7
+    container_name: mongo
+    env_file: .env
+    ports:
+      - "27017:27017"
