@@ -8,10 +8,7 @@ const URI = `mongodb://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@mongo:27017/${D
 
 export const connectToDB = async () => {
     try {
-        await mongoose.connect(URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
+        await mongoose.connect(URI);
         console.log('Connected to database');
     } catch (error) {
         console.error('Something went wrong', error);
