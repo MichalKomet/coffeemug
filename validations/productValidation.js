@@ -1,4 +1,4 @@
-import { body } from 'express-validator';
+import { body, param } from 'express-validator';
 
 export const createProductValidationRules = [
     body('name')
@@ -16,4 +16,14 @@ export const createProductValidationRules = [
     body('stock')
         .notEmpty().withMessage('Stock is required')
         .isInt({ gt: -1 }).withMessage('Stock must be a non-negative integer')
+];
+
+export const updateProductStockLevelValidationRules = [
+  body('amount')
+      .notEmpty().withMessage('Amount is required')
+      .isInt({ gt: 0 }).withMessage('Amount must be greater than 0'),
+
+    param('id')
+        .notEmpty().withMessage('Product id is required')
+        .isMongoId().withMessage('Product id is not valid')
 ];
