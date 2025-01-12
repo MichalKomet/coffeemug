@@ -1,6 +1,7 @@
 import express from 'express';
 import { connectToDB } from './mongoConnection.js';
 import productsRoutes from "./src/routes/productsRoutes.js";
+import ordersRoutes from "./src/routes/ordersRoutes.js";
 
 const app = express();
 app.use(express.json());
@@ -8,6 +9,7 @@ app.use(express.json());
 const SERVER_PORT = process.env.SERVER_PORT;
 
 app.use('/products', productsRoutes);
+app.use('/orders', ordersRoutes);
 
 connectToDB().then(() => {
     app.listen(SERVER_PORT, () => {
