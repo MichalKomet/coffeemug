@@ -1,6 +1,8 @@
 import Product from '../../models/productModel.js';
 import Order from '../../models/orderModel.js';
-import {ObjectId} from "mongodb";
+import { ObjectId } from "mongodb";
+import { NotFoundError } from "../../../errors/NotFoundError.js";
+import { InsufficientStockError } from "../../../errors/InsufficientStockError.js";
 
 export const createOrderCommand = async (customerId, products) => {
     try {
@@ -12,11 +14,11 @@ export const createOrderCommand = async (customerId, products) => {
             const product = await Product.findById(new ObjectId(productId));
 
             if (!product) {
-                throw new Error(`Product ${productId} not found`);
+                throw new NotFoundError(`Product ${productId} not found`);
             }
 
             if (product.stock < quantity) {
-                throw new Error(`Insufficient stock for ${productId}`);
+                throw new InsufficientStockError(`Insufficient stock for ${productId}`);
             }
 
             product.stock -= quantity;
