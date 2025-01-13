@@ -31,7 +31,7 @@ export const createOrderCommand = async (customerId, products) => {
         }
         const newOrder = new Order({
             customerId,
-            orderItems
+            products: orderItems
         });
 
         return newOrder.save();
